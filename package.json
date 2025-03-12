@@ -1,8 +1,12 @@
 {
   "name": "@rklos/eslint-config",
   "version": "1.0.0",
+  "type": "module",
   "exports": {
-    "./*": "./configs/*"
+    "./*": {
+      "types": "./types.d.ts",
+      "import": "./configs/*.mjs"
+    }
   },
   "repository": "git@github.com:rklos/eslint-configs.git",
   "author": "rklos <radoslaw@klos.dev>",
