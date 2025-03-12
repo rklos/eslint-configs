@@ -2,7 +2,7 @@
   "name": "@rklos/eslint-config",
   "version": "1.0.0",
   "exports": {
-    "*": "./configs/*"
+    "./*": "./configs/*"
   },
   "repository": "git@github.com:rklos/eslint-configs.git",
   "author": "rklos <radoslaw@klos.dev>",
