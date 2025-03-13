@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "type": "module",
   "exports": {
-    "./*": {
-      "import": {
-        "types": "./types.d.ts",
-        "default": "./configs/*.mjs"
-      }
-    }
+    "./base": "./configs/base.mjs",
+    "./cypress": "./configs/cypress.mjs",
+    "./jest": "./configs/jest.mjs",
+    "./nest": "./configs/nest.mjs",
+    "./next": "./configs/next.mjs",
+    "./react": "./configs/react.mjs",
+    "./vitest": "./configs/vitest.mjs"
   },
   "repository": "git@github.com:rklos/eslint-configs.git",
   "author": "rklos <radoslaw@klos.dev>",
