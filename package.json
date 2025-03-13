@@ -4,8 +4,10 @@
   "type": "module",
   "exports": {
     "./*": {
-      "types": "./types.d.ts",
-      "import": "./configs/*.mjs"
+      "import": {
+        "types": "./types.d.ts",
+        "default": "./configs/*.mjs"
+      }
     }
   },
   "repository": "git@github.com:rklos/eslint-configs.git",
