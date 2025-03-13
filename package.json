@@ -3,14 +3,40 @@
   "version": "1.0.0",
   "type": "module",
   "types": "./types.d.ts",
+  "main": "./configs/base.mjs",
   "exports": {
-    "./base": "./configs/base.mjs",
-    "./cypress": "./configs/cypress.mjs",
-    "./jest": "./configs/jest.mjs",
-    "./nest": "./configs/nest.mjs",
-    "./next": "./configs/next.mjs",
-    "./react": "./configs/react.mjs",
-    "./vitest": "./configs/vitest.mjs"
+    ".": {
+      "types": "./types.d.ts",
+      "default": "./configs/base.mjs"
+    },
+    "./base": {
+      "types": "./types.d.ts",
+      "default": "./configs/base.mjs"
+    },
+    "./cypress": {
+      "types": "./types.d.ts",
+      "default": "./configs/cypress.mjs"
+    },
+    "./jest": {
+      "types": "./types.d.ts",
+      "default": "./configs/jest.mjs"
+    },
+    "./nest": {
+      "types": "./types.d.ts",
+      "default": "./configs/nest.mjs"
+    },
+    "./next": {
+      "types": "./types.d.ts",
+      "default": "./configs/next.mjs"
+    },
+    "./react": {
+      "types": "./types.d.ts",
+      "default": "./configs/react.mjs"
+    },
+    "./vitest": {
+      "types": "./types.d.ts",
+      "default": "./configs/vitest.mjs"
+    }
   },
   "repository": "git@github.com:rklos/eslint-configs.git",
   "author": "rklos <radoslaw@klos.dev>",
