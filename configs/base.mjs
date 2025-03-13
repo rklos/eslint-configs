@@ -78,6 +78,7 @@ export default tseslint.config(
     files: [ 'eslint.config.js', 'eslint.config.cjs', 'eslint.config.mjs' ],
     rules: {
       'import/no-extraneous-dependencies': 0,
+      'import/no-duplicates': 0,
     },
   },
 );
