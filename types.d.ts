@@ -1,3 +1,5 @@
 import type { ConfigArray } from 'typescript-eslint';
 
-export default ConfigArray;
+declare module '@rklos/eslint-configs/*' {
+  export default ConfigArray;
+}

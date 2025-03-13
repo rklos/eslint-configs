@@ -2,6 +2,7 @@
   "name": "@rklos/eslint-config",
   "version": "1.0.0",
   "type": "module",
+  "types": "./types.d.ts",
   "exports": {
     "./base": "./configs/base.mjs",
     "./cypress": "./configs/cypress.mjs",
