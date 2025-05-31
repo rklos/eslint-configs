@@ -9,8 +9,13 @@ export default [
   ...fixupConfigRules(compat.plugins('only-warn')),
   {
     files: [ '**/*.ts', '**/*.mts', '**/*.tsx', '**/*.js', '**/*.cjs', '**/*.mjs', '**/*.jsx', '**/*.vue', '**/*.svelte' ],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    },
     settings: {
       'import/resolver': {
+        typescript: {},
         node: {
           extensions: [ '.ts', '.mts', '.tsx', '.d.ts', '.js', '.cjs', '.mjs', '.jsx', '.vue', '.svelte' ],
         },
