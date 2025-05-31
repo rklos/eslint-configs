@@ -13,6 +13,10 @@
       "types": "./types.d.ts",
       "default": "./configs/base.mjs"
     },
+    "./typescript": {
+      "types": "./types.d.ts",
+      "default": "./configs/typescript.mjs"
+    },
     "./cypress": {
       "types": "./types.d.ts",
       "default": "./configs/cypress.mjs"

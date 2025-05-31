@@ -1,9 +1,9 @@
 import { fixupConfigRules } from '@eslint/compat';
-import base from './base.mjs';
+import ts from './typescript.mjs';
 import compat from '../utils/compat.mjs';
 
 export default [
-  ...base,
+  ...ts,
   ...fixupConfigRules(compat.extends('airbnb')),
   {
     files: [ '**/*.tsx', '**/*.jsx' ],

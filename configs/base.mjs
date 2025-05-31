@@ -1,20 +1,16 @@
-// @ts-check
 import { fixupConfigRules } from '@eslint/compat';
 import js from '@eslint/js';
-import tseslint from 'typescript-eslint';
 import stylistic from '@stylistic/eslint-plugin';
 import compat from '../utils/compat.mjs';
 
-export default tseslint.config(
+export default [
   js.configs.recommended,
-  tseslint.configs.recommended,
   ...fixupConfigRules(compat.extends('airbnb-base')),
   ...fixupConfigRules(compat.plugins('only-warn')),
   {
     files: [ '**/*.ts', '**/*.mts', '**/*.tsx', '**/*.js', '**/*.cjs', '**/*.mjs', '**/*.jsx', '**/*.vue', '**/*.svelte' ],
     settings: {
       'import/resolver': {
-        typescript: {},
         node: {
           extensions: [ '.ts', '.mts', '.tsx', '.d.ts', '.js', '.cjs', '.mjs', '.jsx', '.vue', '.svelte' ],
         },
@@ -67,11 +63,6 @@ export default tseslint.config(
       '@stylistic/member-delimiter-style': 1,
       '@stylistic/type-annotation-spacing': 1,
       '@stylistic/lines-between-class-members': [ 1, { enforce: [{ blankLine: 'always', prev: 'method', next: 'method' }] }],
-
-      '@typescript-eslint/consistent-type-definitions': [ 1, 'interface' ],
-      '@typescript-eslint/consistent-type-imports': 1,
-      '@typescript-eslint/no-unused-vars': [ 1, { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
-      '@typescript-eslint/explicit-member-accessibility': 1,
     },
   },
   {
@@ -81,4 +72,4 @@ export default tseslint.config(
       'import/no-duplicates': 0,
     },
   },
-);
+];

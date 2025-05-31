@@ -1,7 +1,7 @@
-import base from './base.mjs';
+import ts from './typescript.mjs';
 
 export default [
-  ...base,
+  ...ts,
   {
     files: [ '**/*.ts', '**/*.mts' ],
     rules: {
