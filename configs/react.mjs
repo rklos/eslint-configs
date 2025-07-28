@@ -28,6 +28,7 @@ export default [
       // 'react/jsx-closing-bracket-location': [ 1, 'after-props' ],
       // 'react/jsx-indent-props': [ 1, 'first' ],
       // 'react/jsx-curly-spacing': [ 1, { when: 'always', children: true, spacing: { objectLiterals: 'never' } }],
+
       'react/jsx-filename-extension': [ 1, { extensions: [ '.jsx', '.tsx' ] }],
     },
   },
