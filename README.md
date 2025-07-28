@@ -17,7 +17,17 @@ If you're using an older version of ESLint, you will need to upgrade to use thes
 ## 🚀 Get Started
 
 1. **Install**:  
-   `npm install --save-dev rklos/eslint-configs`
+   ```sh
+   npm install --save-dev rklos/eslint-configs
+   ```
+
+   Also install all required peer dependencies based on your tech stack and the configs you use.
+   (Check inside each config file to see which dependencies are needed.)
+
+   For example, if you use the React config:
+   ```sh
+   npm install --save-dev eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-config-airbnb
+   ```
 
 2. **Configure**:  
    In your `eslint.config.js` (ESLint 9+ [flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new)):
@@ -31,6 +41,8 @@ If you're using an older version of ESLint, you will need to upgrade to use thes
    ```
 
 3. **Enjoy Clean, Consistent Code!**
+
+<br>
 
 ---
 
