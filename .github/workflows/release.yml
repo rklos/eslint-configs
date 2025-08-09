@@ -25,7 +25,9 @@ jobs:
         uses: dawidd6/action-get-tag@v1.1.0
 
       - name: Bump Version
-        run: yarn version ${{ steps.tag.outputs.tag }}
+        run: |
+          corepack enable
+          yarn version ${{ steps.tag.outputs.tag }}
 
       - name: Commit Bumped Version
         uses: EndBug/add-and-commit@v9
