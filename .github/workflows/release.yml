@@ -32,6 +32,6 @@ jobs:
       - name: Commit Bumped Version
         uses: EndBug/add-and-commit@v9
         with:
-          add: 'package.json .yarn/install-state.gz'
+          add: 'package.json'
           message: 'Bump version to ${{ steps.tag.outputs.tag }}'
           pathspec_error_handling: exitImmediately
