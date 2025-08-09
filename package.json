@@ -54,12 +54,10 @@
     "@stylistic/eslint-plugin-migrate": "^4.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-node": "^0.3.9",
-    "eslint-import-resolver-typescript": "^3.8.4",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-only-error": "^1.0.2",
     "eslint-plugin-only-warn": "^1.1.0",
-    "globals": "^16.0.0",
-    "typescript-eslint": "^8.26.1"
+    "globals": "^16.0.0"
   },
   "// devDepencencies": "It should contain all the peerDependencies",
   "devDependencies": {
@@ -68,12 +66,14 @@
     "eslint": "^9",
     "eslint-config-airbnb": "^19",
     "eslint-config-next": "^15",
+    "eslint-import-resolver-typescript": "^3",
     "eslint-plugin-cypress": "^4",
     "eslint-plugin-jest": "^28",
     "eslint-plugin-jsx-a11y": "^6",
     "eslint-plugin-react": "^7",
     "eslint-plugin-react-hooks": "^5",
-    "typescript": "^5"
+    "typescript": "^5",
+    "typescript-eslint": "^8"
   },
   "peerDependencies": {
     "@next/eslint-plugin-next": "^15",
@@ -81,11 +81,13 @@
     "eslint": "^9",
     "eslint-config-airbnb": "^19",
     "eslint-config-next": "^15",
+    "eslint-import-resolver-typescript": "^3",
     "eslint-plugin-cypress": "^4",
     "eslint-plugin-jest": "^28",
     "eslint-plugin-jsx-a11y": "^6",
     "eslint-plugin-react": "^7",
     "eslint-plugin-react-hooks": "^5",
-    "typescript": "^5"
+    "typescript": "^5",
+    "typescript-eslint": "^8"
   }
 }
