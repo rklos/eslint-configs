@@ -3,9 +3,15 @@ import base from './base.mjs';
 
 export default tseslint.config(
   ...base,
-  tseslint.configs.recommended,
+  tseslint.configs.recommendedTypeChecked,
   {
     files: [ '**/*.ts', '**/*.mts', '**/*.tsx', '**/*.js', '**/*.cjs', '**/*.mjs', '**/*.jsx', '**/*.vue', '**/*.svelte' ],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
     // Override or add rules here
     rules: {
       '@typescript-eslint/consistent-type-definitions': [ 1, 'interface' ],
