@@ -1,1 +1,5 @@
-export default {};
+import override from './override.mjs';
+
+export default {
+  ...override,
+};

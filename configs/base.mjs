@@ -2,6 +2,7 @@ import { fixupConfigRules } from '@eslint/compat';
 import js from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
 import compat from '../utils/compat.mjs';
+import override from './rules/override.mjs';
 
 export default [
   js.configs.recommended,
@@ -38,20 +39,6 @@ export default [
       'object-curly-newline': [ 1, { multiline: true, minProperties: 5, consistent: true }],
       'lines-between-class-members': [ 1, 'always', { exceptAfterSingleLine: true }],
 
-      'import/extensions': [ 1, 'ignorePackages', {
-        ts: 'never',
-        mts: 'never',
-        tsx: 'never',
-        js: 'always',
-        cjs: 'always',
-        mjs: 'always',
-        jsx: 'never',
-        vue: 'always',
-        svelte: 'always',
-
-        svg: 'always',
-        json: 'always',
-      }],
       // ???
       'import/no-extraneous-dependencies': [ 1, { devDependencies: true }],
 
@@ -68,6 +55,7 @@ export default [
       '@stylistic/member-delimiter-style': 1,
       '@stylistic/type-annotation-spacing': 1,
       '@stylistic/lines-between-class-members': [ 1, { enforce: [{ blankLine: 'always', prev: 'method', next: 'method' }] }],
+      ...override,
     },
   },
   {

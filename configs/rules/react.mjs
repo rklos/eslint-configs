@@ -1,3 +1,5 @@
+import override from './override.mjs';
+
 export default {
   'react/destructuring-assignment': 0,
   'react/react-in-jsx-scope': 0,
@@ -21,4 +23,6 @@ export default {
   // 'react/jsx-curly-spacing': [ 1, { when: 'always', children: true, spacing: { objectLiterals: 'never' } }],
 
   'react/jsx-filename-extension': [ 1, { extensions: [ '.jsx', '.tsx' ] }],
+
+  ...override,
 };
