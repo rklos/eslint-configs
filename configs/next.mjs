@@ -1,4 +1,5 @@
 import { fixupConfigRules } from '@eslint/compat';
+import globals from 'globals';
 import react from './react.mjs';
 import compat from '../utils/compat.mjs';
 
@@ -15,14 +16,20 @@ import compat from '../utils/compat.mjs';
 // });
 // /* eslint-enable no-param-reassign */
 
-// TODO: fix the following error:
-// Error while loading rule '@typescript-eslint/await-thenable': You have used a rule which requires type information, but don't have parserOptions set to generate type information for this file. See https://typescript-eslint.io/getting-started/typed-linting for enabling linting with type information.
-// Parser: eslint-config-next/parser
-// Note: detected a parser other than @typescript-eslint/parser. Make sure the parser is configured to forward "parserOptions.project" to @typescript-eslint/parser.
-// Occurred while linting /.../.../.../some-file.tsx
-
 export default [
   ...react,
   ...fixupConfigRules(compat.extends('next')),
   ...fixupConfigRules(compat.extends('next/core-web-vitals')),
+  {
+    files: [ '**/*.tsx', '**/*.jsx' ],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.es2020,
+        ...globals.node,
+        React: 'readonly',
+        JSX: 'readonly',
+      },
+    },
+  },
 ];

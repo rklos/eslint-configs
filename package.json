@@ -33,13 +33,29 @@
       "types": "./types.d.ts",
       "default": "./configs/next.mjs"
     },
+    "./next-ts": {
+      "types": "./types.d.ts",
+      "default": "./configs/next-ts.mjs"
+    },
     "./react": {
       "types": "./types.d.ts",
       "default": "./configs/react.mjs"
     },
+    "./react-ts": {
+      "types": "./types.d.ts",
+      "default": "./configs/react-ts.mjs"
+    },
     "./vitest": {
       "types": "./types.d.ts",
       "default": "./configs/vitest.mjs"
+    },
+    "./vue": {
+      "types": "./types.d.ts",
+      "default": "./configs/vue.mjs"
+    },
+    "./vue-ts": {
+      "types": "./types.d.ts",
+      "default": "./configs/vue-ts.mjs"
     }
   },
   "repository": "git@github.com:rklos/eslint-configs.git",
@@ -62,6 +78,7 @@
   "// devDepencencies": "It should contain all the peerDependencies",
   "devDependencies": {
     "@next/eslint-plugin-next": "^15",
+    "@typescript-eslint/parser": "^8",
     "@vitest/eslint-plugin": "^1",
     "eslint": "^9",
     "eslint-config-airbnb": "^19",
@@ -72,11 +89,14 @@
     "eslint-plugin-jsx-a11y": "^6",
     "eslint-plugin-react": "^7",
     "eslint-plugin-react-hooks": "^5",
+    "eslint-plugin-vue": "^10",
     "typescript": "^5",
-    "typescript-eslint": "^8"
+    "typescript-eslint": "^8",
+    "vue-eslint-parser": "^10"
   },
   "peerDependencies": {
     "@next/eslint-plugin-next": "^15",
+    "@typescript-eslint/parser": "^8",
     "@vitest/eslint-plugin": "^1",
     "eslint": "^9",
     "eslint-config-airbnb": "^19",
@@ -87,7 +107,9 @@
     "eslint-plugin-jsx-a11y": "^6",
     "eslint-plugin-react": "^7",
     "eslint-plugin-react-hooks": "^5",
+    "eslint-plugin-vue": "^10",
     "typescript": "^5",
-    "typescript-eslint": "^8"
+    "typescript-eslint": "^8",
+    "vue-eslint-parser": "^10"
   }
 }

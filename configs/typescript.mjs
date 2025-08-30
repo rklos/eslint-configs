@@ -1,12 +1,15 @@
-import tseslint from 'typescript-eslint';
+import tsEslint from 'typescript-eslint';
 import base from './base.mjs';
 
-export default tseslint.config(
-  ...base,
-  tseslint.configs.recommendedTypeChecked,
+export default tsEslint.config(
   {
     files: [ '**/*.ts', '**/*.mts', '**/*.tsx', '**/*.js', '**/*.cjs', '**/*.mjs', '**/*.jsx', '**/*.vue', '**/*.svelte' ],
-    // Override or add rules here
+
+    extends: [
+      ...base,
+      ...tsEslint.configs.recommendedTypeChecked,
+    ],
+
     rules: {
       '@typescript-eslint/consistent-type-definitions': [ 1, 'interface' ],
       '@typescript-eslint/consistent-type-imports': 1,
