@@ -40,6 +40,52 @@ If you're using an older version of ESLint, you will need to upgrade to use thes
    ];
    ```
 
+
+## ⚙️ TypeScript, React, Next.js, and Vue Support
+
+These configs are designed for **modern TypeScript projects** and include ready-to-use setups for React, Next.js, and Vue.  
+**Type-aware linting** (rules that require TypeScript type information) is supported, but requires a small manual step due to ESLint's flat config limitations:
+
+> **To enable full type-aware linting:**  
+> In your project’s root `eslint.config.js`, you must set the `parserOptions.project` option to point to your `tsconfig.json`:
+>
+> ```js
+> // eslint.config.js
+> export default [
+>   // ...your config imports
+>   {
+>     languageOptions: {
+>       parserOptions: {
+>         project: ['./tsconfig.json'],
+>       },
+>     },
+>   },
+> ];
+> ```
+>
+> This cannot be preconfigured in a shared config—see [typescript-eslint docs](https://typescript-eslint.io/linting/typed-linting/) for details.
+
+### React + TypeScript
+
+- Use the `react` or `react-ts` config for React projects.
+- Includes sensible defaults for JSX, accessibility, and React best practices.
+- TypeScript parser is preconfigured; just add the `parserOptions.project` override as above for type-aware rules.
+
+### Next.js + TypeScript
+
+- Use the `next-ts` config for Next.js projects.
+- The correct parser is already set up for Next.js—**you do not need to set the `parser` option yourself**.
+- For type-aware rules, add the `parserOptions.project` override as shown above.
+
+### Vue + TypeScript
+
+- Use the `vue-ts` config for Vue 3 projects with TypeScript.
+- The config uses the recommended Vue plugin and TypeScript parser.
+- For type-aware rules, add the `parserOptions.project` override as shown above.
+
+> **Tip:**  
+> Always check the comments at the top of each config file for the latest usage notes and required peer dependencies.
+
 3. **Enjoy Clean, Consistent Code!**
 
 <br>
