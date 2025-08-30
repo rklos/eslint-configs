@@ -1,4 +1,4 @@
-import override from './override.mjs';
+import baseRules from './base.mjs';
 
 export default {
   'react/destructuring-assignment': 0,
@@ -24,5 +24,6 @@ export default {
 
   'react/jsx-filename-extension': [ 1, { extensions: [ '.jsx', '.tsx' ] }],
 
-  ...override,
+  // Base rules are overridden by some community plugins, so we need to apply them again
+  ...baseRules,
 };

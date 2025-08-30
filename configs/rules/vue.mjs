@@ -1,5 +1,6 @@
-import override from './override.mjs';
+import baseRules from './base.mjs';
 
 export default {
-  ...override,
+  // Base rules are overridden by some community plugins, so we need to apply them again
+  ...baseRules,
 };
