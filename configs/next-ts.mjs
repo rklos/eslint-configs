@@ -2,7 +2,7 @@ import { fixupConfigRules } from '@eslint/compat';
 import globals from 'globals';
 import tsEslint from 'typescript-eslint';
 import typescriptEslint from '@typescript-eslint/parser';
-import nextEslintParser from 'eslint-config-next/parser';
+// import nextEslintParser from 'eslint-config-next/parser';
 import reactTs from './react-ts.mjs';
 import compat from '../utils/compat.mjs';
 
@@ -23,12 +23,25 @@ import compat from '../utils/compat.mjs';
  * The parser is preconfigured here for Next.js projects, so you do NOT need to set the `parser` option yourself.
  */
 
+const nextConfig = [
+  ...fixupConfigRules(compat.extends('next/typescript')),
+  ...fixupConfigRules(compat.extends('next/core-web-vitals')),
+];
+
+// Hack: fix for ESLint's "Cannot redefine plugin" error
+/* eslint-disable no-param-reassign */
+nextConfig.forEach((config) => {
+  if (config.plugins?.['@typescript-eslint']) delete config.plugins['@typescript-eslint'];
+  // if (config.plugins?.react) delete config.plugins.react;
+  // if (config.plugins?.['jsx-a11y']) delete config.plugins['jsx-a11y'];
+});
+/* eslint-enable no-param-reassign */
+
 export default tsEslint.config({
   // No need for a `files` property here; this config is intended for the project root.
   extends: [
     ...reactTs,
-    ...fixupConfigRules(compat.extends('next')),
-    ...fixupConfigRules(compat.extends('next/core-web-vitals')),
+    ...nextConfig,
   ],
 
   languageOptions: {
@@ -39,7 +52,8 @@ export default tsEslint.config({
       React: 'readonly',
       JSX: 'readonly',
     },
-    parser: nextEslintParser,
+    parser: typescriptEslint,
+    // parser: nextEslintParser,
     parserOptions: {
       parser: typescriptEslint,
       // project: [ './tsconfig.json' ], // <-- cannot be set here, must be set in user's config
