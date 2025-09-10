@@ -22,26 +22,9 @@ import ts from './typescript.mjs';
 
 export default tsEslint.config(
   ...ts,
+  ...astro.configs.recommended,
   {
     files: [ '**/*.astro' ],
-
-    extends: [
-      ...ts,
-      ...astro.configs.recommended,
-    ],
-
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.es2020,
-      },
-      parserOptions: {
-        projectService: true,
-        parser: typescriptEslint,
-        // project: [ './tsconfig.json' ], // <-- cannot be set here, must be set in user's config
-        extraFileExtensions: [ '.astro' ],
-      },
-    },
 
     rules: {
       ...astroRules,
