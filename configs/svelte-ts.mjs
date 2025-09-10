@@ -2,8 +2,8 @@ import globals from 'globals';
 import tsEslint from 'typescript-eslint';
 import typescriptEslint from '@typescript-eslint/parser';
 import svelte from 'eslint-plugin-svelte';
-import base from './base.mjs';
 import svelteRules from './rules/svelte.mjs';
+import ts from './typescript.mjs';
 
 /**
  * NOTE:
@@ -24,7 +24,7 @@ export default tsEslint.config({
   files: [ '**/*.svelte', '**/*.svelte.js', '**/*.svelte.ts', '**/*.astro' ],
 
   extends: [
-    ...base,
+    ...ts,
     ...svelte.configs.recommended,
   ],
 
