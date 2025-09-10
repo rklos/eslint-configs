@@ -1,13 +1,13 @@
 import globals from 'globals';
-import vueEslint from 'eslint-plugin-vue';
+import astro from 'eslint-plugin-astro';
 import base from './base.mjs';
-import vueRules from './rules/vue.mjs';
+import astroRules from './rules/astro.mjs';
 
 export default [
   ...base,
-  ...vueEslint.configs['flat/recommended'],
+  ...astro.configs.recommended,
   {
-    files: [ '**/*.vue' ],
+    files: [ '**/*.astro' ],
 
     languageOptions: {
       globals: {
@@ -17,7 +17,7 @@ export default [
     },
 
     rules: {
-      ...vueRules,
+      ...astroRules,
     },
   },
 ];

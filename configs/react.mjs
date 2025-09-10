@@ -8,7 +8,7 @@ export default [
   ...base,
   ...fixupConfigRules(compat.extends('airbnb')),
   {
-    files: [ '**/*.tsx', '**/*.jsx', '**/*.astro' ],
+    files: [ '**/*.tsx', '**/*.jsx' ],
 
     languageOptions: {
       globals: {

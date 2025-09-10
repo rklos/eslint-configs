@@ -7,7 +7,7 @@ export default [
   ...base,
   ...svelte.configs.recommended,
   {
-    files: [ '**/*.svelte', '**/*.svelte.js', '**/*.astro' ],
+    files: [ '**/*.svelte', '**/*.svelte.js' ],
 
     languageOptions: {
       globals: {
