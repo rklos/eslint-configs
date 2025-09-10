@@ -7,7 +7,7 @@ export default [
   ...base,
   ...vueEslint.configs['flat/recommended'],
   {
-    files: [ '**/*.vue' ],
+    files: [ '**/*.vue', '**/*.astro' ],
 
     languageOptions: {
       globals: {

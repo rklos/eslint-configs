@@ -3,7 +3,7 @@ import base from './base.mjs';
 
 export default tsEslint.config(
   {
-    files: [ '**/*.ts', '**/*.mts', '**/*.tsx', '**/*.js', '**/*.cjs', '**/*.mjs', '**/*.jsx', '**/*.vue', '**/*.svelte' ],
+    files: [ '**/*.ts', '**/*.mts', '**/*.tsx', '**/*.js', '**/*.cjs', '**/*.mjs', '**/*.jsx', '**/*.vue', '**/*.svelte', '**/*.astro' ],
 
     extends: [
       ...base,

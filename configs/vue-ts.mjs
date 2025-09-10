@@ -21,7 +21,7 @@ import vueRules from './rules/vue.mjs';
  */
 
 export default tsEslint.config({
-  files: [ '**/*.vue' ],
+  files: [ '**/*.vue', '**/*.astro' ],
 
   extends: [
     ...base,

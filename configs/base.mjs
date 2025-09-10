@@ -9,7 +9,7 @@ export default [
   ...fixupConfigRules(compat.extends('airbnb-base')),
   ...fixupConfigRules(compat.plugins('only-warn')),
   {
-    files: [ '**/*.ts', '**/*.mts', '**/*.tsx', '**/*.js', '**/*.cjs', '**/*.mjs', '**/*.jsx', '**/*.vue', '**/*.svelte' ],
+    files: [ '**/*.ts', '**/*.mts', '**/*.tsx', '**/*.js', '**/*.cjs', '**/*.mjs', '**/*.jsx', '**/*.vue', '**/*.svelte', '**/*.astro' ],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',

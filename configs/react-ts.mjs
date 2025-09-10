@@ -22,7 +22,7 @@ import reactRules from './rules/react.mjs';
  */
 
 export default tsEslint.config({
-  files: [ '**/*.tsx', '**/*.jsx' ],
+  files: [ '**/*.tsx', '**/*.jsx', '**/*.astro' ],
 
   extends: [
     ...ts,
