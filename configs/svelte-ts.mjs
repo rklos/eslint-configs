@@ -20,33 +20,36 @@ import ts from './typescript.mjs';
  * See: https://typescript-eslint.io/linting/typed-linting/ and ESLint docs.
  */
 
-export default tsEslint.config({
-  files: [ '**/*.svelte', '**/*.svelte.js', '**/*.svelte.ts', '**/*.astro' ],
+export default tsEslint.config(
+  ...ts,
+  {
+    files: [ '**/*.svelte', '**/*.svelte.js', '**/*.svelte.ts' ],
 
-  extends: [
-    ...ts,
-    ...svelte.configs.recommended,
-  ],
+    extends: [
+      ...ts,
+      ...svelte.configs.recommended,
+    ],
 
-  languageOptions: {
-    globals: {
-      ...globals.browser,
-      ...globals.es2020,
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.es2020,
+      },
+      parserOptions: {
+        projectService: true,
+        parser: typescriptEslint,
+        // project: [ './tsconfig.json' ], // <-- cannot be set here, must be set in user's config
+        extraFileExtensions: [ '.svelte' ],
+      },
     },
-    parserOptions: {
-      projectService: true,
-      parser: typescriptEslint,
-      // project: [ './tsconfig.json' ], // <-- cannot be set here, must be set in user's config
-      extraFileExtensions: [ '.svelte' ],
+
+    rules: {
+      ...svelteRules,
+
+      'svelte/block-lang': [ 1, {
+        script: 'ts',
+        style: 'scss',
+      }],
     },
   },
-
-  rules: {
-    ...svelteRules,
-
-    'svelte/block-lang': [ 1, {
-      script: 'ts',
-      style: 'scss',
-    }],
-  },
-});
+);

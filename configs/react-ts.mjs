@@ -21,26 +21,29 @@ import reactRules from './rules/react.mjs';
  * See: https://typescript-eslint.io/linting/typed-linting/ and ESLint docs.
  */
 
-export default tsEslint.config({
-  files: [ '**/*.tsx', '**/*.jsx', '**/*.astro' ],
+export default tsEslint.config(
+  ...ts,
+  {
+    files: [ '**/*.tsx', '**/*.jsx' ],
 
-  extends: [
-    ...ts,
-    ...fixupConfigRules(compat.extends('airbnb')),
-  ],
+    extends: [
+      ...ts,
+      ...fixupConfigRules(compat.extends('airbnb')),
+    ],
 
-  languageOptions: {
-    globals: {
-      ...globals.browser,
-      ...globals.es2020,
-      React: 'readonly',
-      JSX: 'readonly',
-    },
-    parser: typescriptEslint,
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.es2020,
+        React: 'readonly',
+        JSX: 'readonly',
+      },
+      parser: typescriptEslint,
     // project: [ './tsconfig.json' ], // <-- cannot be set here, must be set in user's config
-  },
+    },
 
-  rules: {
-    ...reactRules,
+    rules: {
+      ...reactRules,
+    },
   },
-});
+);

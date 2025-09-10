@@ -20,28 +20,31 @@ import vueRules from './rules/vue.mjs';
  * See: https://typescript-eslint.io/linting/typed-linting/ and ESLint docs.
  */
 
-export default tsEslint.config({
-  files: [ '**/*.vue', '**/*.astro' ],
+export default tsEslint.config(
+  ...ts,
+  {
+    files: [ '**/*.vue' ],
 
-  extends: [
-    ...ts,
-    ...vueEslint.configs['flat/recommended'],
-  ],
+    extends: [
+      ...ts,
+      ...vueEslint.configs['flat/recommended'],
+    ],
 
-  languageOptions: {
-    globals: {
-      ...globals.browser,
-      ...globals.es2020,
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.es2020,
+      },
+      parser: vueEslint.parser,
+      parserOptions: {
+        parser: typescriptEslint,
+        // project: [ './tsconfig.json' ], // <-- cannot be set here, must be set in user's config
+        extraFileExtensions: [ '.vue' ],
+      },
     },
-    parser: vueEslint.parser,
-    parserOptions: {
-      parser: typescriptEslint,
-      // project: [ './tsconfig.json' ], // <-- cannot be set here, must be set in user's config
-      extraFileExtensions: [ '.vue' ],
+
+    rules: {
+      ...vueRules,
     },
   },
-
-  rules: {
-    ...vueRules,
-  },
-});
+);
