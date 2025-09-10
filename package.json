@@ -56,6 +56,14 @@
     "./vue-ts": {
       "types": "./types.d.ts",
       "default": "./configs/vue-ts.mjs"
+    },
+    "./svelte": {
+      "types": "./types.d.ts",
+      "default": "./configs/svelte.mjs"
+    },
+    "./svelte-ts": {
+      "types": "./types.d.ts",
+      "default": "./configs/svelte-ts.mjs"
     }
   },
   "repository": "git@github.com:rklos/eslint-configs.git",
