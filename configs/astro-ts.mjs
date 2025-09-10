@@ -45,6 +45,8 @@ export default tsEslint.config(
 
     rules: {
       ...astroRules,
+
+      '@typescript-eslint/no-unused-vars': [ 1, { varsIgnorePattern: '^(_.*|Props)$', argsIgnorePattern: '^_' }],
     },
   },
 );
