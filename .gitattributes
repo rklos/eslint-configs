@@ -1,0 +1,10 @@
+# Exclude dev files from GitHub archive downloads (used by npm/yarn git installs)
+tests/ export-ignore
+docs/ export-ignore
+.claude/ export-ignore
+.github/ export-ignore
+vitest.config.mjs export-ignore
+eslint.config.mjs export-ignore
+CLAUDE.md export-ignore
+yarn.lock export-ignore
+yarnrc.yml export-ignore
