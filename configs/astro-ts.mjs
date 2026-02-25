@@ -20,11 +20,29 @@ import ts from './typescript.mjs';
  * See: https://typescript-eslint.io/linting/typed-linting/ and ESLint docs.
  */
 
+// Extract plugins from ts config so they're available for .astro files.
+// Necessary because typescript.mjs scopes plugins to JS/TS files only.
+const tsPlugins = {};
+for (const entry of ts) {
+  if (entry.plugins) {
+    Object.assign(tsPlugins, entry.plugins);
+  }
+}
+
 export default tsEslint.config(
   ...ts,
   ...astro.configs.recommended,
   {
     files: [ '**/*.astro' ],
+
+    plugins: tsPlugins,
+
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.es2020,
+      },
+    },
 
     rules: {
       ...astroRules,

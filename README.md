@@ -1,95 +1,356 @@
-# 🧹 My Personal ESLint Configs for Modern Web Development
+# @rklos/eslint-config
 
-Welcome! This repository contains **my own curated ESLint ruleset**, designed for a modern JavaScript/TypeScript stack—including React, Nestjs, TypeScript, testing libraries and accessibility best practices.
+My personal ESLint configs for modern web development. Opinionated, based on Airbnb with my own tweaks.
 
-> **Note:**  
-This config **supports only ESLint 9+** and uses the new [flat config format](https://eslint.org/docs/latest/use/configure/configuration-files-new).  
-If you're using an older version of ESLint, you will need to upgrade to use these configs.
+Supports **ESLint 9+ and 10** with [flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new) only.
 
+## Available configs
 
-## ✨ Features
+| Config | Import path | Includes |
+|--------|-------------|----------|
+| Base (JS) | `@rklos/eslint-config/base` | Airbnb base, stylistic rules |
+| TypeScript | `@rklos/eslint-config/typescript` | Base + typescript-eslint |
+| React | `@rklos/eslint-config/react` | Base + React, JSX a11y |
+| React + TS | `@rklos/eslint-config/react-ts` | TypeScript + React, JSX a11y |
+| Next.js | `@rklos/eslint-config/next` | React + eslint-config-next |
+| Next.js + TS | `@rklos/eslint-config/next-ts` | React TS + eslint-config-next |
+| Vue | `@rklos/eslint-config/vue` | Base + Vue plugin |
+| Vue + TS | `@rklos/eslint-config/vue-ts` | TypeScript + Vue plugin |
+| Svelte | `@rklos/eslint-config/svelte` | Base + Svelte plugin |
+| Svelte + TS | `@rklos/eslint-config/svelte-ts` | TypeScript + Svelte plugin |
+| Astro | `@rklos/eslint-config/astro` | Base + Astro plugin |
+| Astro + TS | `@rklos/eslint-config/astro-ts` | TypeScript + Astro plugin |
+| Jest | `@rklos/eslint-config/jest` | Jest plugin (standalone) |
+| Vitest | `@rklos/eslint-config/vitest` | Vitest plugin (standalone) |
+| Cypress | `@rklos/eslint-config/cypress` | TypeScript + Cypress plugin |
+| NestJS | `@rklos/eslint-config/nest` | TypeScript |
 
-- **My Preferred Rules**: Handpicked and fine-tuned to match my coding style and workflow. Feel free to use it in your own project!
-- **Ready for React & TypeScript**: Pre-configured for seamless integration.
-- **Accessibility Included**: Sensible defaults for JSX a11y.
-- **Based on Airbnb & Community Best Practices**: Enhanced with my personal preferences.
+## Usage
 
-## 🚀 Get Started
+### Basic setup
 
-1. **Install**:  
-   ```sh
-   npm install --save-dev rklos/eslint-configs
-   ```
+```js
+// eslint.config.js
+import react from '@rklos/eslint-config/react';
 
-   Also install all required peer dependencies based on your tech stack and the configs you use.
-   (Check inside each config file to see which dependencies are needed.)
+export default [
+  ...react,
+];
+```
 
-   For example, if you use the React config:
-   ```sh
-   npm install --save-dev eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-config-airbnb
-   ```
+### TypeScript with type-aware linting
 
-2. **Configure**:  
-   In your `eslint.config.js` (ESLint 9+ [flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new)):
-   ```js
-   import baseReact from '@rklos/eslint-configs/react';
+All `-ts` configs include typescript-eslint's type-checked rules. For these to work you need to point to your `tsconfig.json`:
 
-   export default [
-     ...baseReact,
-     // You can add your own custom rules or overrides here
-   ];
-   ```
+```js
+// eslint.config.js
+import reactTs from '@rklos/eslint-config/react-ts';
 
+export default [
+  ...reactTs,
+  {
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
+    },
+  },
+];
+```
 
-## ⚙️ TypeScript, React, Next.js, and Vue Support
+This is required because ESLint's flat config doesn't allow shared configs to resolve project-relative tsconfig paths. See [typescript-eslint docs](https://typescript-eslint.io/linting/typed-linting/) for details.
 
-These configs are designed for **modern TypeScript projects** and include ready-to-use setups for React, Next.js, and Vue.  
-**Type-aware linting** (rules that require TypeScript type information) is supported, but requires a small manual step due to ESLint's flat config limitations:
+### Combining multiple configs
 
-> **To enable full type-aware linting:**  
-> In your project’s root `eslint.config.js`, you must set the `parserOptions.project` option to point to your `tsconfig.json`:
->
-> ```js
-> // eslint.config.js
-> export default [
->   // ...your config imports
->   {
->     languageOptions: {
->       parserOptions: {
->         project: ['./tsconfig.json'],
->       },
->     },
->   },
-> ];
-> ```
->
-> This cannot be preconfigured in a shared config—see [typescript-eslint docs](https://typescript-eslint.io/linting/typed-linting/) for details.
+Configs can be spread together. For example, an Astro project with React and TypeScript:
 
-### React + TypeScript
+```js
+// eslint.config.js
+import astroTs from '@rklos/eslint-config/astro-ts';
+import reactTs from '@rklos/eslint-config/react-ts';
+import vitest from '@rklos/eslint-config/vitest';
 
-- Use the `react` or `react-ts` config for React projects.
-- Includes sensible defaults for JSX, accessibility, and React best practices.
-- TypeScript parser is preconfigured; just add the `parserOptions.project` override as above for type-aware rules.
-
-### Next.js + TypeScript
-
-- Use the `next-ts` config for Next.js projects.
-- The correct parser is already set up for Next.js—**you do not need to set the `parser` option yourself**.
-- For type-aware rules, add the `parserOptions.project` override as shown above.
-
-### Vue + TypeScript
-
-- Use the `vue-ts` config for Vue 3 projects with TypeScript.
-- The config uses the recommended Vue plugin and TypeScript parser.
-- For type-aware rules, add the `parserOptions.project` override as shown above.
-
-> **Tip:**  
-> Always check the comments at the top of each config file for the latest usage notes and required peer dependencies.
-
-3. **Enjoy Clean, Consistent Code!**
-
-<br>
+export default [
+  ...astroTs,
+  ...reactTs,
+  ...vitest,
+  {
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
+    },
+  },
+];
+```
 
 ---
 
-Feel free to explore, suggest improvements, or use this ruleset as a starting point for your own projects!
+## Config details
+
+Install `@rklos/eslint-config` and `eslint` first, then add the peer dependencies for the configs you use.
+
+```sh
+npm install --save-dev @rklos/eslint-config eslint
+```
+
+### Base
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript
+```
+
+```js
+import base from '@rklos/eslint-config/base';
+
+export default [...base];
+```
+
+### TypeScript
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript typescript typescript-eslint
+```
+
+```js
+import typescript from '@rklos/eslint-config/typescript';
+
+export default [
+  ...typescript,
+  {
+    languageOptions: {
+      parserOptions: { project: ['./tsconfig.json'] },
+    },
+  },
+];
+```
+
+### React
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript eslint-config-airbnb eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y
+```
+
+```js
+import react from '@rklos/eslint-config/react';
+
+export default [...react];
+```
+
+### React + TypeScript
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript typescript typescript-eslint @typescript-eslint/parser eslint-config-airbnb eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y
+```
+
+```js
+import reactTs from '@rklos/eslint-config/react-ts';
+
+export default [
+  ...reactTs,
+  {
+    languageOptions: {
+      parserOptions: { project: ['./tsconfig.json'] },
+    },
+  },
+];
+```
+
+### Next.js
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript eslint-config-airbnb eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-config-next @next/eslint-plugin-next
+```
+
+```js
+import next from '@rklos/eslint-config/next';
+
+export default [...next];
+```
+
+### Next.js + TypeScript
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript typescript typescript-eslint @typescript-eslint/parser eslint-config-airbnb eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-config-next @next/eslint-plugin-next
+```
+
+Parser is preconfigured — you don't need to set it yourself.
+
+```js
+import nextTs from '@rklos/eslint-config/next-ts';
+
+export default [
+  ...nextTs,
+  {
+    languageOptions: {
+      parserOptions: { project: ['./tsconfig.json'] },
+    },
+  },
+];
+```
+
+### Vue
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript eslint-plugin-vue
+```
+
+```js
+import vue from '@rklos/eslint-config/vue';
+
+export default [...vue];
+```
+
+### Vue + TypeScript
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript typescript typescript-eslint @typescript-eslint/parser eslint-plugin-vue vue-eslint-parser
+```
+
+```js
+import vueTs from '@rklos/eslint-config/vue-ts';
+
+export default [
+  ...vueTs,
+  {
+    languageOptions: {
+      parserOptions: { project: ['./tsconfig.json'] },
+    },
+  },
+];
+```
+
+### Svelte
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript eslint-plugin-svelte
+```
+
+```js
+import svelte from '@rklos/eslint-config/svelte';
+
+export default [...svelte];
+```
+
+### Svelte + TypeScript
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript typescript typescript-eslint @typescript-eslint/parser eslint-plugin-svelte
+```
+
+Uses `projectService` internally — do **not** add `parserOptions.project` for `.svelte` files. For `.ts` files it works as usual:
+
+```js
+import svelteTs from '@rklos/eslint-config/svelte-ts';
+
+export default [
+  ...svelteTs,
+  {
+    ignores: ['**/*.svelte'],
+    languageOptions: {
+      parserOptions: { project: ['./tsconfig.json'] },
+    },
+  },
+];
+```
+
+### Astro
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript eslint-plugin-astro
+```
+
+```js
+import astro from '@rklos/eslint-config/astro';
+
+export default [...astro];
+```
+
+### Astro + TypeScript
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript typescript typescript-eslint @typescript-eslint/parser eslint-plugin-astro
+```
+
+```js
+import astroTs from '@rklos/eslint-config/astro-ts';
+
+export default [
+  ...astroTs,
+  {
+    languageOptions: {
+      parserOptions: { project: ['./tsconfig.json'] },
+    },
+  },
+];
+```
+
+### Jest
+
+Standalone — combine with any other config.
+
+```sh
+npm install --save-dev eslint-plugin-jest
+```
+
+```js
+import jest from '@rklos/eslint-config/jest';
+
+export default [...jest];
+```
+
+### Vitest
+
+Standalone — combine with any other config.
+
+```sh
+npm install --save-dev @vitest/eslint-plugin
+```
+
+```js
+import vitest from '@rklos/eslint-config/vitest';
+
+export default [...vitest];
+```
+
+### Cypress
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript typescript typescript-eslint eslint-plugin-cypress
+```
+
+```js
+import cypress from '@rklos/eslint-config/cypress';
+
+export default [
+  ...cypress,
+  {
+    languageOptions: {
+      parserOptions: { project: ['./tsconfig.json'] },
+    },
+  },
+];
+```
+
+### NestJS
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript typescript typescript-eslint
+```
+
+```js
+import nest from '@rklos/eslint-config/nest';
+
+export default [
+  ...nest,
+  {
+    languageOptions: {
+      parserOptions: { project: ['./tsconfig.json'] },
+    },
+  },
+];
+```
+
+## License
+
+MIT

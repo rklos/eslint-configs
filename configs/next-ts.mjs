@@ -1,10 +1,8 @@
-import { fixupConfigRules } from '@eslint/compat';
 import globals from 'globals';
 import tsEslint from 'typescript-eslint';
 import typescriptEslint from '@typescript-eslint/parser';
-// import nextEslintParser from 'eslint-config-next/parser';
+import nextConfig from 'eslint-config-next';
 import reactTs from './react-ts.mjs';
-import compat from '../utils/compat.mjs';
 
 /**
  * NOTE:
@@ -23,25 +21,30 @@ import compat from '../utils/compat.mjs';
  * The parser is preconfigured here for Next.js projects, so you do NOT need to set the `parser` option yourself.
  */
 
-const nextConfig = [
-  ...fixupConfigRules(compat.extends('next/typescript')),
-  ...fixupConfigRules(compat.extends('next/core-web-vitals')),
-];
+// eslint-config-next@16 exports native flat config, no compat layer needed.
+// Replace next config's plugin instances with ours to avoid "Cannot redefine plugin" errors.
+const ourPlugins = {};
+for (const entry of reactTs) {
+  if (entry.plugins) {
+    Object.assign(ourPlugins, entry.plugins);
+  }
+}
 
-// Hack: fix for ESLint's "Cannot redefine plugin" error
-/* eslint-disable no-param-reassign */
-nextConfig.forEach((config) => {
-  if (config.plugins?.['@typescript-eslint']) delete config.plugins['@typescript-eslint'];
-  // if (config.plugins?.react) delete config.plugins.react;
-  // if (config.plugins?.['jsx-a11y']) delete config.plugins['jsx-a11y'];
+const nextEntries = nextConfig.map((entry) => {
+  if (!entry.plugins) return entry;
+  const plugins = { ...entry.plugins };
+  for (const key of Object.keys(plugins)) {
+    if (ourPlugins[key]) {
+      plugins[key] = ourPlugins[key];
+    }
+  }
+  return { ...entry, plugins };
 });
-/* eslint-enable no-param-reassign */
 
 export default tsEslint.config({
-  // No need for a `files` property here; this config is intended for the project root.
   extends: [
     ...reactTs,
-    ...nextConfig,
+    ...nextEntries,
   ],
 
   languageOptions: {
@@ -53,7 +56,6 @@ export default tsEslint.config({
       JSX: 'readonly',
     },
     parser: typescriptEslint,
-    // parser: nextEslintParser,
     parserOptions: {
       parser: typescriptEslint,
       // project: [ './tsconfig.json' ], // <-- cannot be set here, must be set in user's config
