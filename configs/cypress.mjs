@@ -1,4 +1,4 @@
-import cypress from 'eslint-plugin-cypress/flat';
+import cypress from 'eslint-plugin-cypress';
 import ts from './typescript.mjs';
 
 export default [
