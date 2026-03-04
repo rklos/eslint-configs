@@ -9,7 +9,6 @@ const fixturesDir = path.join(__dirname, 'fixtures');
 const typeCheckingConfig = {
   languageOptions: {
     parserOptions: {
-      project: path.join(__dirname, 'tsconfig.json'),
       extraFileExtensions: [ '.vue', '.astro', '.svelte' ],
     },
   },
@@ -314,28 +313,14 @@ describe('Regression: CSS modules no-unsafe-assignment in Astro + React + TS', (
   });
 });
 
-describe('Regression: svelte-ts + astro-ts with user project config on .svelte.ts files', () => {
-  // Bug: svelte-ts used projectService: true for .svelte.ts files. When users added
-  // project: ['tsconfig.json'] with ignores: ['**/*.svelte'], .svelte.ts files got both
-  // projectService and project, causing: "Enabling 'project' does nothing when 'projectService'
-  // is enabled." Fix: replaced projectService with project: true so user's project overrides it.
+describe('Regression: svelte-ts + astro-ts should lint .svelte.ts files without user config', () => {
+  // projectService: true is built into the configs, so users don't need to set project at all.
+  // Previously, users had to add parserOptions.project with svelte-specific ignores.
 
-  it('should parse .svelte.ts files without fatal errors when svelte-ts + astro-ts combined with user project config', async () => {
+  it('should parse .svelte.ts files without fatal errors when svelte-ts + astro-ts combined', async () => {
     const { default: svelteTsConfig } = await import('../configs/svelte-ts.mjs');
     const { default: astroTsConfig } = await import('../configs/astro-ts.mjs');
-    const merged = [
-      ...svelteTsConfig,
-      ...astroTsConfig,
-      {
-        // User only ignores .svelte, NOT .svelte.ts — this previously caused the conflict
-        ignores: [ '**/*.svelte' ],
-        languageOptions: {
-          parserOptions: {
-            project: path.join(__dirname, 'tsconfig.json'),
-          },
-        },
-      },
-    ];
+    const merged = [ ...svelteTsConfig, ...astroTsConfig ];
     const results = await lintFixture(merged, 'svelte-runes.svelte.ts');
     const fatals = getFatalErrors(results);
     expect(fatals).toEqual([]);

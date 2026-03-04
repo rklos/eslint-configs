@@ -28,7 +28,7 @@ export default tsEslint.config(
         ...globals.es2020,
       },
       parserOptions: {
-        project: true,
+        projectService: true,
         extraFileExtensions: [ '.astro' ],
       },
     },

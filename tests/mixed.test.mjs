@@ -9,7 +9,6 @@ const fixturesDir = path.join(__dirname, 'fixtures');
 const typeCheckingConfig = {
   languageOptions: {
     parserOptions: {
-      project: path.join(__dirname, 'tsconfig.json'),
       extraFileExtensions: [ '.vue', '.astro', '.svelte' ],
     },
   },

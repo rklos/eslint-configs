@@ -21,7 +21,6 @@ export default tsEslint.config(
         ...globals.es2020,
       },
       parserOptions: {
-        project: true,
         parser: typescriptEslint,
         extraFileExtensions: [ '.svelte' ],
       },

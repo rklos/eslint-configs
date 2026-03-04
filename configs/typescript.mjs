@@ -12,7 +12,9 @@ export default tsEslint.config(
 
     languageOptions: {
       parserOptions: {
-        project: true,
+        projectService: {
+          allowDefaultProject: [ '*.js', '*.cjs', '*.mjs', '*.jsx' ],
+        },
       },
     },
 
