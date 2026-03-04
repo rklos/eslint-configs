@@ -2,7 +2,7 @@
 
 My personal ESLint configs for modern web development. Opinionated, based on Airbnb with my own tweaks.
 
-Supports **ESLint 9+ and 10** with [flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new) only.
+Supports **ESLint 9+ and 10** with [flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new) only. Requires **Node.js >= 20.12.0** (ESLint 10's stylish formatter uses `util.styleText` which was added in Node 20.12.0).
 
 ## Available configs
 
