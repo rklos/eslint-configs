@@ -23,7 +23,7 @@ Shared ESLint flat configs (`@rklos/eslint-config`). Supports ESLint 9+ and 10. 
 
 - `typescript.mjs` file patterns are limited to JS/TS files only (`**/*.ts`, `**/*.mts`, `**/*.tsx`, `**/*.js`, `**/*.cjs`, `**/*.mjs`, `**/*.jsx`). Framework extensions (`.vue`, `.svelte`, `.astro`) are excluded to prevent parser conflicts when combining multiple `-ts` configs.
 - Framework `-ts` configs (astro-ts, svelte-ts, vue-ts) use `extends` or extract `tsPlugins` from the `ts` config to apply TypeScript rules to their specific file types without overriding framework parsers.
-- `svelte-ts` uses `projectService: true` which conflicts with `parserOptions.project`. Tests add `ignores: ['**/*.svelte', '**/*.svelte.js', '**/*.svelte.ts']` to the `typeCheckingConfig` to avoid this.
+- `typescript.mjs` sets `parserOptions.project: true` which auto-detects the nearest tsconfig.json. This flows to framework `-ts` configs via `extends`. `astro-ts` also sets `project: true` explicitly for `.astro` files since it uses plugin extraction instead of `extends`. Users can override with a specific path (e.g. `project: ['./tsconfig.json']`) — the later value wins, no conflict.
 - `eslint-config-next`'s babel parser doesn't support ESLint 10's `scopeManager.addGlobals`. `next.mjs` detects and removes it so ESLint falls back to espree.
 
 ## Maintaining configs
@@ -74,7 +74,7 @@ When fixing a bug:
 
 ### Test infrastructure notes
 
-- `typeCheckingConfig` in test files adds `parserOptions.project` for type-aware linting. It ignores `.svelte` files due to `projectService` conflict.
+- `typeCheckingConfig` in test files overrides `parserOptions.project` with the test tsconfig path and adds `extraFileExtensions` for framework files.
 - `suppressNextPagesRule` disables `@next/next/no-html-link-for-pages` in tests since there's no `pages/` directory in the test environment.
 - Fixtures should be minimal — just enough code to exercise the parser and rules without triggering errors.
 

@@ -6,13 +6,11 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixturesDir = path.join(__dirname, 'fixtures');
 
-// Ignores *.svelte because svelte-ts uses projectService which conflicts with project
 const typeCheckingConfig = {
-  ignores: [ '**/*.svelte', '**/*.svelte.js', '**/*.svelte.ts' ],
   languageOptions: {
     parserOptions: {
       project: path.join(__dirname, 'tsconfig.json'),
-      extraFileExtensions: [ '.vue', '.astro' ],
+      extraFileExtensions: [ '.vue', '.astro', '.svelte' ],
     },
   },
 };

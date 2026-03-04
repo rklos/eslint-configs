@@ -10,6 +10,12 @@ export default tsEslint.config(
       ...tsEslint.configs.recommendedTypeChecked,
     ],
 
+    languageOptions: {
+      parserOptions: {
+        project: true,
+      },
+    },
+
     rules: {
       '@typescript-eslint/consistent-type-definitions': [ 1, 'interface' ],
       '@typescript-eslint/consistent-type-imports': 1,

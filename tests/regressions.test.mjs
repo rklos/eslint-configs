@@ -6,13 +6,11 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixturesDir = path.join(__dirname, 'fixtures');
 
-// Ignores *.svelte because svelte-ts uses projectService which conflicts with project
 const typeCheckingConfig = {
-  ignores: [ '**/*.svelte', '**/*.svelte.js', '**/*.svelte.ts' ],
   languageOptions: {
     parserOptions: {
       project: path.join(__dirname, 'tsconfig.json'),
-      extraFileExtensions: [ '.vue', '.astro' ],
+      extraFileExtensions: [ '.vue', '.astro', '.svelte' ],
     },
   },
 };
@@ -313,6 +311,34 @@ describe('Regression: CSS modules no-unsafe-assignment in Astro + React + TS', (
     const nextViolations = getRuleViolations(nextResults, '@typescript-eslint/no-unsafe-assignment');
 
     expect(astroReactViolations.length).toBe(nextViolations.length);
+  });
+});
+
+describe('Regression: svelte-ts + astro-ts with user project config on .svelte.ts files', () => {
+  // Bug: svelte-ts used projectService: true for .svelte.ts files. When users added
+  // project: ['tsconfig.json'] with ignores: ['**/*.svelte'], .svelte.ts files got both
+  // projectService and project, causing: "Enabling 'project' does nothing when 'projectService'
+  // is enabled." Fix: replaced projectService with project: true so user's project overrides it.
+
+  it('should parse .svelte.ts files without fatal errors when svelte-ts + astro-ts combined with user project config', async () => {
+    const { default: svelteTsConfig } = await import('../configs/svelte-ts.mjs');
+    const { default: astroTsConfig } = await import('../configs/astro-ts.mjs');
+    const merged = [
+      ...svelteTsConfig,
+      ...astroTsConfig,
+      {
+        // User only ignores .svelte, NOT .svelte.ts — this previously caused the conflict
+        ignores: [ '**/*.svelte' ],
+        languageOptions: {
+          parserOptions: {
+            project: path.join(__dirname, 'tsconfig.json'),
+          },
+        },
+      },
+    ];
+    const results = await lintFixture(merged, 'svelte-runes.svelte.ts');
+    const fatals = getFatalErrors(results);
+    expect(fatals).toEqual([]);
   });
 });
 

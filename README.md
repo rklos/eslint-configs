@@ -115,14 +115,7 @@ npm install --save-dev eslint-import-resolver-typescript typescript typescript-e
 ```js
 import typescript from '@rklos/eslint-config/typescript';
 
-export default [
-  ...typescript,
-  {
-    languageOptions: {
-      parserOptions: { project: ['./tsconfig.json'] },
-    },
-  },
-];
+export default [...typescript];
 ```
 
 ### React
@@ -146,14 +139,7 @@ npm install --save-dev eslint-import-resolver-typescript typescript typescript-e
 ```js
 import reactTs from '@rklos/eslint-config/react-ts';
 
-export default [
-  ...reactTs,
-  {
-    languageOptions: {
-      parserOptions: { project: ['./tsconfig.json'] },
-    },
-  },
-];
+export default [...reactTs];
 ```
 
 ### Next.js
@@ -174,19 +160,10 @@ export default [...next];
 npm install --save-dev eslint-import-resolver-typescript typescript typescript-eslint @typescript-eslint/parser eslint-config-airbnb eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-config-next @next/eslint-plugin-next
 ```
 
-Parser is preconfigured — you don't need to set it yourself.
-
 ```js
 import nextTs from '@rklos/eslint-config/next-ts';
 
-export default [
-  ...nextTs,
-  {
-    languageOptions: {
-      parserOptions: { project: ['./tsconfig.json'] },
-    },
-  },
-];
+export default [...nextTs];
 ```
 
 ### Vue
@@ -210,14 +187,7 @@ npm install --save-dev eslint-import-resolver-typescript typescript typescript-e
 ```js
 import vueTs from '@rklos/eslint-config/vue-ts';
 
-export default [
-  ...vueTs,
-  {
-    languageOptions: {
-      parserOptions: { project: ['./tsconfig.json'] },
-    },
-  },
-];
+export default [...vueTs];
 ```
 
 ### Svelte
@@ -238,20 +208,10 @@ export default [...svelte];
 npm install --save-dev eslint-import-resolver-typescript typescript typescript-eslint @typescript-eslint/parser eslint-plugin-svelte
 ```
 
-Uses `projectService` internally — do **not** add `parserOptions.project` for `.svelte` files. For `.ts` files it works as usual:
-
 ```js
 import svelteTs from '@rklos/eslint-config/svelte-ts';
 
-export default [
-  ...svelteTs,
-  {
-    ignores: ['**/*.svelte'],
-    languageOptions: {
-      parserOptions: { project: ['./tsconfig.json'] },
-    },
-  },
-];
+export default [...svelteTs];
 ```
 
 ### Astro
@@ -275,14 +235,7 @@ npm install --save-dev eslint-import-resolver-typescript typescript typescript-e
 ```js
 import astroTs from '@rklos/eslint-config/astro-ts';
 
-export default [
-  ...astroTs,
-  {
-    languageOptions: {
-      parserOptions: { project: ['./tsconfig.json'] },
-    },
-  },
-];
+export default [...astroTs];
 ```
 
 ### Jest
