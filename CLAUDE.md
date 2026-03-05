@@ -23,7 +23,7 @@ Shared ESLint flat configs (`@rklos/eslint-config`). Supports ESLint 9+ and 10. 
 
 - `typescript.mjs` file patterns are limited to JS/TS files only (`**/*.ts`, `**/*.mts`, `**/*.tsx`, `**/*.js`, `**/*.cjs`, `**/*.mjs`, `**/*.jsx`). Framework extensions (`.vue`, `.svelte`, `.astro`) are excluded to prevent parser conflicts when combining multiple `-ts` configs.
 - Framework `-ts` configs (astro-ts, svelte-ts, vue-ts) use `extends` or extract `tsPlugins` from the `ts` config to apply TypeScript rules to their specific file types without overriding framework parsers.
-- `typescript.mjs` sets `parserOptions.projectService` with `allowDefaultProject` for JS files. This enables type-aware linting out of the box without users needing to configure `parserOptions.project`. It flows to framework `-ts` configs via `extends`. `astro-ts` also sets `projectService: true` explicitly for `.astro` files since it uses plugin extraction instead of `extends`. Users should NOT set `parserOptions.project` as it conflicts with `projectService`.
+- `typescript.mjs` sets `parserOptions.projectService: true` to enable type-aware linting. It flows to framework `-ts` configs via `extends`. No `allowDefaultProject` is set — users whose root JS files aren't in any tsconfig should add `allowDefaultProject` in their own config. `astro-ts` uses `project: true` (not `projectService`) for `.astro` files because `astro-eslint-parser` does not support `projectService`. Users should NOT set `parserOptions.project` as it conflicts with `projectService`.
 - `eslint-config-next`'s babel parser doesn't support ESLint 10's `scopeManager.addGlobals`. `next.mjs` detects and removes it so ESLint falls back to espree.
 
 ## Maintaining configs

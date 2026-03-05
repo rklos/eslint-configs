@@ -360,6 +360,38 @@ describe('Regression: astro-ts should apply base rules (semi, quotes) to .astro 
   });
 });
 
+describe('Regression: astro-ts should not set projectService for .astro files', () => {
+  // astro-eslint-parser does not support the projectService option.
+  // It converts it to project: true with a console warning.
+  // The config should use project: true directly to avoid the warning.
+
+  it('should not have projectService in parserOptions for .astro files', async () => {
+    const { default: astroTsConfig } = await import('../configs/astro-ts.mjs');
+    const eslint = new ESLint({
+      overrideConfigFile: true,
+      overrideConfig: astroTsConfig,
+      cwd: path.join(__dirname),
+    });
+    const config = await eslint.calculateConfigForFile(path.join(fixturesDir, 'astro-ts.astro'));
+    expect(config.languageOptions.parserOptions.projectService).toBeUndefined();
+    expect(config.languageOptions.parserOptions.project).toBe(true);
+  });
+
+  it('should not have projectService in parserOptions for .astro files when combined with svelte-ts', async () => {
+    const { default: astroTsConfig } = await import('../configs/astro-ts.mjs');
+    const { default: svelteTsConfig } = await import('../configs/svelte-ts.mjs');
+    const merged = [ ...svelteTsConfig, ...astroTsConfig ];
+    const eslint = new ESLint({
+      overrideConfigFile: true,
+      overrideConfig: merged,
+      cwd: path.join(__dirname),
+    });
+    const config = await eslint.calculateConfigForFile(path.join(fixturesDir, 'astro-ts.astro'));
+    expect(config.languageOptions.parserOptions.projectService).toBeUndefined();
+    expect(config.languageOptions.parserOptions.project).toBe(true);
+  });
+});
+
 describe('Regression: Astro + React + TS parser conflicts', () => {
   it('should parse .astro files without fatal errors when combined with react-ts', async () => {
     const { default: astroTsConfig } = await import('../configs/astro-ts.mjs');
