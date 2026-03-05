@@ -327,6 +327,39 @@ describe('Regression: svelte-ts + astro-ts should lint .svelte.ts files without 
   });
 });
 
+describe('Regression: astro-ts should apply base rules (semi, quotes) to .astro files', () => {
+  // Bug: astro-ts used plugin extraction instead of extends for the .astro files block,
+  // which meant base/airbnb rules (semi, quotes, etc.) were not applied to .astro files.
+  // Only @stylistic rules and custom overrides from rules/astro.mjs were present.
+
+  it('should have semi rule configured for .astro files', async () => {
+    const { default: astroTsConfig } = await import('../configs/astro-ts.mjs');
+    const eslint = new ESLint({
+      overrideConfigFile: true,
+      overrideConfig: astroTsConfig,
+      cwd: path.join(__dirname),
+    });
+    const config = await eslint.calculateConfigForFile(path.join(fixturesDir, 'astro-ts.astro'));
+    expect(config.rules?.semi).toBeDefined();
+    expect(config.rules?.quotes).toBeDefined();
+  });
+
+  it('should warn about missing semicolons in .astro frontmatter', async () => {
+    const { default: astroTsConfig } = await import('../configs/astro-ts.mjs');
+    const eslint = new ESLint({
+      overrideConfigFile: true,
+      overrideConfig: astroTsConfig,
+      cwd: path.join(__dirname),
+    });
+    const results = await eslint.lintText(
+      '---\nconst title = \'Hello\'\n---\n\n<h1>{title}</h1>\n',
+      { filePath: path.join(fixturesDir, 'astro-ts.astro') },
+    );
+    const semiViolations = getRuleViolations(results, 'semi');
+    expect(semiViolations.length).toBeGreaterThan(0);
+  });
+});
+
 describe('Regression: Astro + React + TS parser conflicts', () => {
   it('should parse .astro files without fatal errors when combined with react-ts', async () => {
     const { default: astroTsConfig } = await import('../configs/astro-ts.mjs');

@@ -3,6 +3,7 @@ import tsEslint from 'typescript-eslint';
 import typescriptEslint from '@typescript-eslint/parser';
 import astro from 'eslint-plugin-astro';
 import astroRules from './rules/astro.mjs';
+import base from './base.mjs';
 import ts from './typescript.mjs';
 
 // Extract plugins from ts config so they're available for .astro files.
@@ -19,6 +20,8 @@ export default tsEslint.config(
   ...astro.configs.recommended,
   {
     files: [ '**/*.astro' ],
+
+    extends: [ ...base ],
 
     plugins: tsPlugins,
 
