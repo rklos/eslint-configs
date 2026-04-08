@@ -40,25 +40,16 @@ export default [
 
 ### TypeScript with type-aware linting
 
-All `-ts` configs include typescript-eslint's type-checked rules. For these to work you need to point to your `tsconfig.json`:
+All `-ts` configs include typescript-eslint's type-checked rules with `projectService` enabled. This automatically finds the relevant `tsconfig.json` — no manual configuration needed:
 
 ```js
 // eslint.config.js
 import reactTs from '@rklos/eslint-config/react-ts';
 
-export default [
-  ...reactTs,
-  {
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.json'],
-      },
-    },
-  },
-];
+export default [...reactTs];
 ```
 
-This is required because ESLint's flat config doesn't allow shared configs to resolve project-relative tsconfig paths. See [typescript-eslint docs](https://typescript-eslint.io/linting/typed-linting/) for details.
+> **Note:** Do not set `parserOptions.project` — it conflicts with `projectService`. If you have root JS files not covered by any tsconfig, add `parserOptions.allowDefaultProject` in your config instead.
 
 ### Combining multiple configs
 
@@ -74,13 +65,6 @@ export default [
   ...astroTs,
   ...reactTs,
   ...vitest,
-  {
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.json'],
-      },
-    },
-  },
 ];
 ```
 
@@ -275,14 +259,7 @@ npm install --save-dev eslint-import-resolver-typescript typescript typescript-e
 ```js
 import cypress from '@rklos/eslint-config/cypress';
 
-export default [
-  ...cypress,
-  {
-    languageOptions: {
-      parserOptions: { project: ['./tsconfig.json'] },
-    },
-  },
-];
+export default [...cypress];
 ```
 
 ### NestJS
@@ -294,14 +271,7 @@ npm install --save-dev eslint-import-resolver-typescript typescript typescript-e
 ```js
 import nest from '@rklos/eslint-config/nest';
 
-export default [
-  ...nest,
-  {
-    languageOptions: {
-      parserOptions: { project: ['./tsconfig.json'] },
-    },
-  },
-];
+export default [...nest];
 ```
 
 ## License
