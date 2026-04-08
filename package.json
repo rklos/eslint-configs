@@ -1,6 +1,31 @@
 {
   "name": "@rklos/eslint-config",
   "version": "3.1.5",
+  "description": "Shared ESLint flat configs for JavaScript, TypeScript, React, Next.js, Vue, Svelte, Astro, Jest, Vitest, Cypress, and NestJS",
+  "keywords": [
+    "eslint",
+    "eslint-config",
+    "eslint-flat-config",
+    "flat-config",
+    "javascript",
+    "typescript",
+    "react",
+    "nextjs",
+    "vue",
+    "svelte",
+    "astro",
+    "jest",
+    "vitest",
+    "cypress",
+    "nestjs",
+    "airbnb",
+    "linting",
+    "code-quality"
+  ],
+  "homepage": "https://github.com/rklos/eslint-configs#readme",
+  "bugs": {
+    "url": "https://github.com/rklos/eslint-configs/issues"
+  },
   "type": "module",
   "types": "./types.d.ts",
   "main": "./configs/base.mjs",
@@ -75,9 +100,21 @@
     }
   },
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepublishOnly": "vitest run",
+    "release": "yarn test && npm publish",
+    "release:patch": "yarn version patch && yarn release",
+    "release:minor": "yarn version minor && yarn release",
+    "release:major": "yarn version major && yarn release"
   },
-  "repository": "git@github.com:rklos/eslint-configs.git",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rklos/eslint-configs.git"
+  },
   "author": "rklos <radoslaw@klos.dev>",
   "license": "MIT",
   "engines": {
@@ -149,5 +186,24 @@
     "typescript": "^5",
     "typescript-eslint": "^8",
     "vue-eslint-parser": "^10"
+  },
+  "peerDependenciesMeta": {
+    "@next/eslint-plugin-next": { "optional": true },
+    "@typescript-eslint/parser": { "optional": true },
+    "@vitest/eslint-plugin": { "optional": true },
+    "eslint-config-airbnb": { "optional": true },
+    "eslint-config-next": { "optional": true },
+    "eslint-import-resolver-typescript": { "optional": true },
+    "eslint-plugin-astro": { "optional": true },
+    "eslint-plugin-cypress": { "optional": true },
+    "eslint-plugin-jest": { "optional": true },
+    "eslint-plugin-jsx-a11y": { "optional": true },
+    "eslint-plugin-react": { "optional": true },
+    "eslint-plugin-react-hooks": { "optional": true },
+    "eslint-plugin-svelte": { "optional": true },
+    "eslint-plugin-vue": { "optional": true },
+    "typescript": { "optional": true },
+    "typescript-eslint": { "optional": true },
+    "vue-eslint-parser": { "optional": true }
   }
 }
