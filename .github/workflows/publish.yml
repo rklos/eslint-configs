@@ -24,6 +24,6 @@ jobs:
         run: yarn vitest run
 
       - name: Publish to npm
-        run: yarn npm publish
+        run: npm publish
         env:
           YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
